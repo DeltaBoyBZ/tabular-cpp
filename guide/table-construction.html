@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabular-C++ Guide - More on Table Construction</title>
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main">
+        <div id="sidebarContents" class="w3-black w3-sidebar w3-bar-block">
+            <h4 class="w3-bar-item"><strong>Contents</strong></h4>
+            <a href="introduction.html" class="w3-bar-item w3-button">Introduction</a>
+            <a href="getting-started.html" class="w3-bar-item w3-button">Getting Started</a>
+            <a href="table-construction.html" class="w3-bar-item w3-button">More About Table Construction</a>
+            <a href="table-usage.html" class="w3-bar-item w3-button">Interacting With Tables</a>
+        </div>
+        <div id="guide">
+            <header>
+                <div id="header-left">
+                Tabular-C++: Overview and Guide
+                </div>
+                <div id="header-right">
+                Matthew Smith
+                </div>
+            </header><br> 
+
+            <h2> <strong><u>More About Table Construction</u></strong> </h2>
+            <p>
+            Tables are very versatile, but before we can take advantage of them we should know how to construct them to our liking in Tabular-C++. So we shall now go over all the details of how our tables are constructed in Python.
+            </p>
+            <h3> <strong><u> Table Module </u> </strong></h3>
+            <p>
+            Tabular-C++ users can use Python modules to define their tables. 
+            The tables are expressed as Python dicts, and an arbitary number of these are placed in an array called <code>tables</code>. 
+            The constructor script <code>tabcpp.sh</code> will go through each table and insert appropriate C++ code in a nominated header file. 
+            </p>
+            <h3> <strong><u> Table Name </u> </strong> </h3>
+            <p>
+            The <code>'name'</code> of a table should agree with the name given in the header file by the comments <code>//TABLE_BEGIN &ltname&gt</code> and <code>//TABLE_END &ltname&gt</code>.
+            </p>
+
+            <h3> <strong><u> Fields </u> </strong> </h3>
+            <p>
+            The columns of our table are refered to as <em>fields</em>. A field is a Python dict e.g.,
+            </p>
+            <pre class="codeblock"><code> {'type': 'float', 'name': 'height'} </code></pre>
+            <p>
+            but we may also construct this with a function defined in the <code>tabcpp</code> Python module,
+            </p>
+            <pre class="codeblock"><code> tabcpp.field('float', 'height') </code></pre>
+            <p>
+            Fields are given together in the table dict, in an array under the key <code>'fields'</code>.
+            All field datatypes must be avaiable at the location indicated in the target header file. 
+            </p>
+            <h3><strong><u> Keys </u></strong></h3>
+            <p>
+            Every row in a table can be identified by its unique key value. 
+            There are two major types of key:
+            </p>
+            <ul>
+                <li> <strong>Automatic ('auto') keys</strong> - The table manages these itself. Useful for when no field naturally identifies a row. </li>
+                <li> <strong>Manual ('man') keys</strong> - The user manages this, it being one of the table's fields. Useful for when rows can be uniquely determined by a particular field value. </li>
+            </ul>
+            <p>
+            In the Python module, keys are given by a dict e.g.
+            </p>
+            <pre class="codeblock"><code> {'type': 'auto', 'datatype': 'short', 'name': id}</code></pre>
+            <p>
+            or use a function from <code>tabcpp</code>,
+            </p>
+            <pre class="codeblock"><code> tabcpp.key('auto', 'short', 'id') </code></pre>
+            <p>
+            The key is given in the table dict under the key <code>'key'</code>.
+            </p>
+
+            <h3> <u><strong>Inserting the Table in a Header File </strong></u></h3>
+            <p>
+            Code insersion is performed using the <code>tabcpp.sh</code> script, which wraps the real workhorse <code>construct_table.py</code>. You shoud ensure that the table Python module and the target header file are in the same directory. The command syntax is,
+            </p>
+            <pre class="codeblock"><code> $ tabcpp.sh &ltpath-to-table&gt &lttable-python-module&gt </code></pre>
+            <p>
+            In the target header file, it is necessary to have the header <code>tabcpp.hpp</code> is included. 
+            Otherwise the table code will give an error.
+            </p>
+            
+            <strong>Previous</strong>: <a href="getting-started.html">Introduction</a>   ;   
+            <strong>Next</strong>: <a href="table-usage.html">Interacting With Tables</a> 
+        </div>
+    </div> 
+</body>
+</html>

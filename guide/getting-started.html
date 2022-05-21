@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Tabular-C++ Guide - Getting Started </title>
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main">
+        <div id="sidebarContents" class="w3-black w3-sidebar w3-bar-block">
+            <h4 class="w3-bar-item"><strong>Contents</strong></h4>
+            <a href="introduction.html" class="w3-bar-item w3-button">Introduction</a>
+            <a href="getting-started.html" class="w3-bar-item w3-button">Getting Started</a>
+            <a href="table-construction.html" class="w3-bar-item w3-button">More About Table Construction</a>
+            <a href="table-usage.html" class="w3-bar-item w3-button">Interacting With Tables</a>
+        </div>
+        <div id="guide">
+            <header>
+                <div id="header-left">
+                Tabular-C++: Overview and Guide
+                </div>
+                <div id="header-right">
+                Matthew Smith
+                </div>
+            </header><br> 
+
+            <h2><u><strong> Getting Started </strong> </u></h2>
+            <p>
+            We now present a short guide for you to write your first C++ program using Tabular-C++.
+            </p>
+
+            <h3> <strong><u>Step 1: Downloading Tabular C++ and Making it Accessible</u> </strong></h3>
+            <p>
+            The first step will be to download the latest version from the GitHub repository. 
+            Since the Tabular-C++ package is purely C++ headers, (.hpp), Python modules (.py) and bash scripts (.sh), there is no extra building required. 
+            We do however recommend that you run the <code>configure.sh</code> script, which will:
+            <ul>
+                <li> Create a new environment variable <code>TABCPP_ROOT</code> and set it to the root directory of your version of Tabular-C++
+                    <li> Add the value of <code>TABCPP_ROOT</code> to <code>PATH</code>
+                    <li> Add <code>TABCPP_ROOT/include</code> to the system's include paths 
+            </ul>
+            All this is to ensure maximal convenience. There are other ways to get Tabular-C++ working with your projects, which we shall mention when relevant. 
+            </p>
+
+            <h3> <strong><u>Step 2: Creating a New Project</u> </strong></h3>
+            <p>
+            The next step shouldn't present any issues, and this is down to personal taste in workflow. 
+            </p>
+
+            <h3> <strong><u>Step 2.1 (Optional): Importing Tabular-C++ Into Your Project</u></strong> </h3>
+            <p>
+            However if you did <em>not</em> make Tabular-C++ globally accessible, you are recommended to adopt the following project structure:
+            </p>
+            <pre class="codeblock"><code><strong>example</strong> (root)
+├── <strong>bin</strong>
+│   └── compiled-binaries
+├── <strong>include</strong>
+│   ├── <strong>external</strong>
+│   │   └── external-headers
+│   └── <strong>example</strong>
+│       └── project-headers
+├── <strong>lib</strong>
+│   └── libraries-to-link
+├── <strong>src</strong>
+│   └── project-sources
+└── Makefile</code> </pre>
+            <p>
+            Now go to the root of your Tabular-C++ installation, and execute:
+            </p>  
+            <div class="codeblock">
+                <code> $ make export DEST=&ltpath-to-your-project&gt </code>
+            </div>
+
+            </p>
+            If you have done this correctly, you should find in your <code>example</code> folder.
+            </p>
+            <ul>
+                <li> A bash script <code>tabcpp.sh</code> </li>
+                <li> Two Python files: <code>construct_table.py</code> and <code>tabcpp.py</code></li>
+            </ul>
+
+            <h3> <strong> <u> Step 3: Create a Header File </u> </strong> </h3>
+            <p>
+            With basic setup out of the way, we are ready to write the first component of our test program.
+            </p>
+            <pre class="codeblock"><code>//FILE: example/include/example/example.hpp
+#pragma once
+
+#include&ltiostream&gt
+#include&lttabc/tabcpp.hpp&gt
+
+typedef enum 
+{
+    COLOUR_RED, COLOUR_GREEN, COLOUR_BLUE,
+    COLOUR_YELLOW, COLOUR_PINK, COLOUR_PURPLE,
+    COLOUR_ORANGE, COLOUR_OTHER
+} Colour;
+
+//TABLE_BEGIN People
+//TABLE_END People            </code></pre>
+            The comments <code>//TABLE_BEGIN</code> and <code>//TABLE_END</code> comments are crucial here. 
+            They will in time contain the code defining a table which we call <code>People</code>. 
+            </p>
+
+            <h3> <u><strong> Step 4: Construct the Table </strong></u> </h3>
+            <p>
+            The recommended way to create a Tabular-C++ table, is by defining said table with a Python module. 
+            </p>
+            <pre class="codeblock"><code>//FILE: example/include/example/people_table.py
+from tabcpp import *
+
+tables = [
+    {
+        'name': 'People',
+        'fields': [
+            field('std::string', 'name'),
+            field('int', 'age'),
+            field('float', 'height'),
+            field('Colour', 'favouriteColour')
+        ],
+        'key': key('auto', 'short', 'id')
+    }
+]</code></pre>
+        
+            <p>
+            Now run the following command from the root <code>example</code>:
+            <pre class="codeblock"><code> $ tabcpp.sh include/example people_table </code></pre> 
+            Upon reloading <code>example.hpp</code> you shoud find, inserted between the aforementioned comments, some extra code. 
+            This code defines our table, and is now ready for use. 
+            </p>
+
+            <h3><u><strong> Step 5: Write the Main Source and Run </strong></u></h3>
+            <p>
+            We are finally ready to write a program.
+            </p>
+            <pre class="codeblock"><code>#include&ltexample/example.hpp&gt
+
+#include&lttabc/tabcpp.hpp&gt
+
+int main()
+{
+    //initialise an empty table
+    People people;
+    //adding a row to the table
+    people.add("Jenifer", 32, 1.6, A);
+    //adding a row and getting its unique (automatically generated) key
+    short john_id = people.add("John", 22, 1.8, A);
+    //giving the key a name for access convenience
+    people.makeLabel(john_id, "JOHN");
+    people.add("Harold", 69, 1.7, A);
+    //getting data via a label
+    float john_height = people.height.get(people.labels["JOHN"]); 
+    std::cout &lt&lt "John's height is " &lt&lt john_height &lt&lt " metres" &lt&lt std::endl; 
+    return 0;
+} </code></pre>
+            <p>
+            Hopefully most of what's going on at a hight level here is fairly intuitive. 
+            If not, there will be plenty of opportunity to understand this code when we go over using tables in detail.
+            </p>
+            
+            <p>
+            Our program is ready for building, and if you do things correctly you should get the following output upon execution:
+            <pre class="codeblock"><code>John's height is 1.8 metres</code></pre>
+            </p>
+
+            <strong>Previous</strong>: <a href="introduction.html">Introduction</a>   ;   
+            <strong>Next</strong>: <a href="table-construction.html">More About Table Construction</a>
+        </div>
+    </div>
+</body>
+</html>

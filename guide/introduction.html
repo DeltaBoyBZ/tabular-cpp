@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="sidebarContents" class="w3-black w3-sidebar w3-bar-block">
+            <h4 class="w3-bar-item"><strong>Contents</strong></h4>
+            <a href="introduction.html" class="w3-bar-item w3-button">Introduction</a>
+            <a href="getting-started.html" class="w3-bar-item w3-button">Getting Started</a>
+            <a href="table-construction.html" class="w3-bar-item w3-button">More About Table Construction</a>
+            <a href="table-usage.html" class="w3-bar-item w3-button">Interacting With Tables</a>
+        </div>
+        <div id="guide" class="w3-text">
+            <header>
+                <div id="header-left">
+                Tabular-C++: Overview and Guide
+                </div>
+                <div id="header-right">
+                Matthew Smith
+                </div>
+            </header><br> 
+
+            <h1><strong><u>Tabular-C++ Guide </u></strong></h1>
+            <h2><strong><u>Introduction</u></strong></h2>
+            <p>
+                Most of us remember when we first started to program, that we should be fighting with our language of choice for it to do something we know fully well we could do ourselves. 
+        For me, those days are quite far behind me, but that hardly makes me a programming savant. 
+            </p>
+            <p>
+            When working on anything larger than a toy project, one often struggles less with getting basic functionality, but rather with the design of tha application as a whole. 
+            There are number of goals we tend to keep when writing our programs: 
+            </p>
+            <ul>
+            <li>To make our code easy to understand, both for ourselves, as well as other developers. </li>
+            <li>To segment our code into differnt modules or source files, so that we know where to insert additions and changes</li>
+            <li>To make code reusable</li>
+            </ul>
+
+            <p>
+            The quest to meet these goals, is what spawned the adoption of the commonly used object-oriented style of programming. 
+            In this style (using C++ or Java as an example), much of our data is encapsulated in classes, which are also host to methods which deal with that data. 
+            </p> 
+            <p>
+            This style allows for a fairly intuitive workflow while writing software, since as humans we tend to think of data (positions, colours, etc.) as belonging to an object. 
+            We also think of most actions as being performed by objects, often on other objects.   
+            </p> 
+            <p>
+            Object-ortiented programming is not however without its problems. There are some actions for which it is difficult to decide whose responsibilty it is to perform (i.e. which class a method should go in). Considering classes as existing in some sort of hierarchy, it is also not difficult to see that sibling interactions can be rather challenging. Even if we figure out a way to do this, our arrangement would be unstable to data refactoring. 
+            </p>
+            <p> 
+            And there, is the clincher. In order to sensibly develop an application in the object-oriented style, it important for us to have a solid idea of both the data and logic structure from the get-go. Maybe we don't need to be 100% sure, however any mistakes we make in our initial conception will be paid for in a painful bout of refactoring. 
+            </p> 
+            <p>
+            For some it may be different, but for me this requirement of a solid conception from day one, is in outright denial of the nature of software development.
+            My first language was Java, the quitessential object-oriented language.
+            Whenever I felt ambitious and tried to make something big, I always ran into this refactoring issue. 
+            Each time I would work on a project, there would be a change I wanted to make which would require a fundamental change in the program's structure.
+            </p>  
+            <p> 
+            What was I to do? Well that is something I failed to address for many years. 
+            Something I <em>could</em> have done, is to learn the infamouse <strong>design patterns</strong> that progressional programmers study.
+            I am still yet to do this properly, but from what I understand now, the necessity to study such formal patterns is simply an indicator that something better must exist. I had heard about data-oriented programming, and was enchanted by its philosophy: 
+            </p>
+            <p class="statement">
+                <strong> The Basic Principle of Data-Oriented Programming (DOP) </strong><br>
+                <em>
+                Data is data, and logic is logic.<br> 
+                Logic operates on data, but data does not own logic. 
+                </em>
+            </p>
+            What does this mean though? 
+            It means that much of the evils of object-oriented programming (OOP) can be put down to the intermingling of logic and data.
+            Classes are not just containers for data (as structs are) but rather also contain methods that deal with said data.
+            There is more to DOP than this, and it can be argued that the basic principle is simply a statement of the classic procedural philosophy.  
+            Much of DOP is actually focused on transparency and performance concerns, structuring data in such a way that:
+            <ul>
+                <li> Data is easily accessed wherever it's needed, and can be recontextualised without too much effort
+                <li> Data which are used together occupy contiguous memory 
+            </ul>
+            This line of thinking leads to a table-based model of data. Data exists as a cell in a table, and relationships between data is expressed by cells neigbouring eachother in a row.
+            Rows are identified by a unique ID, which allows for data to be referenced together by the row they all appear in. 
+            </p>
+            <p>
+            Implementing a table-based model is easier in some languages than others. 
+            In Python a table might be constructed as collection of arrays, and all the important table update functions can be written quite generally due to Python's non-static typing. 
+            In C++ however, things are not so simple (or at least as far as I can tell). 
+            Created by yours truly, <strong> Tabular-C++ </strong> aims to help developers construct and use tables in C++ via:
+            <ul>
+                <li> A general class to represent tables and member functions for the most common operations.
+                <li> A set of macros to construct the class code which represent a particular table
+                <li> A Python script which can covert a Python module into the necessary macros to construct a table.
+            </ul>
+            It is my aim to help developers get started with these tools, while learning how to use them better myself.
+            </p>
+            <strong>Next</strong>: <a href="getting-started.html">Getting Started</html>
+
+        </div>
+    </div>
+</div> 
+</body>
+</html>

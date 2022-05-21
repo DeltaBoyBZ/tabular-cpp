@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabular-C++ Guide - Interacting with Tables</title>
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main">
+        <div id="sidebarContents" class="w3-black w3-sidebar w3-bar-block">
+            <h4 class="w3-bar-item"><strong>Contents</strong></h4>
+            <a href="introduction.html" class="w3-bar-item w3-button">Introduction</a>
+            <a href="getting-started.html" class="w3-bar-item w3-button">Getting Started</a>
+            <a href="table-construction.html" class="w3-bar-item w3-button">More About Table Construction</a>
+            <a href="table-usage.html" class="w3-bar-item w3-button">Interacting With Tables</a>
+        </div>
+        <div id="guide">
+            <header>
+                <div id="header-left">
+                Tabular-C++: Overview and Guide
+                </div>
+                <div id="header-right">
+                Matthew Smith
+                </div>
+            </header><br> 
+
+            <h2><u><strong>Interacting with Tables</strong></u></h2>
+            Once our table has been constructed, we would very much like to do stuff with it.
+            The basic operations that can be performed on a table are:
+            <ul>
+                <li> Adding and removing rows </li>
+                <li> Reading and updating table elements </li>
+                <li> Looking up key values for a given field value </li>
+            </ul>
+            All of these operations are of course supported by Tabular-C++, as well as some other useful operations. 
+            <h3><u><strong>Adding and Removing Rows</strong></u></h3>
+            <p>
+            Adding a row is done by a table's member method,
+            <pre class="codeblock"><code><em>table</em>.<em>add</em>(<em>elements)</em></code></pre> 
+            This function will return the key value associated with the row, which should remain constant throughout the row's life. 
+            For this reason, the user is recommended to not update the field nominated as a manual key. 
+            </p>
+            <p>
+            Removing a row requires knowledge of its associated key. The syntax is,
+            <pre class="codeblock"><code><em>table</em>.remove(<em>keyval</em>)</code></pre>
+            To remove all rows,
+            <pre class="codeblock"><code><em>table</em>.clear()</code></pre>
+            </p>
+
+            <h3><u><strong>Reading and Updating Elements</strong></u></h3>
+            Reading an element by key value is done via a field's <code>get</code> method,
+            <pre class="codeblock"><code><em>table</em>.<em>field</em>.get(<em>keyval</em>)</code></pre>
+            Setting the element is done with,
+            <pre class="codeblock"><code><em>table</em>.<em>field</em>.set(<em>keyval</em>, <em>fieldval</em>)</code></pre>
+
+            If you need to read or write by row index (the vertical position of  a row), you can simply manipulate the object <code> <em>table</em>.<em>field</em>[index]</code>, since table fields extend <code>std::vector</code>.
+
+            <h3><u><strong>Labelling Rows</strong></u></h3>
+            Sometimes it is convenient to give a label to a row, to help facilitate access in different locations in code. 
+            To associate a label with a key value,
+            <pre class="codeblock"><code><em>table</em>.makeLabel(<em>keyval</em>, <em>label</em>)</code></pre>
+            Labels are implemented as a <code>std::map</code> named <code><em>table</em>.labels</code>, from <code>std::string</code> to the key datatype.
+
+            <h3><u><strong>Getting Relevant Key Values</strong></u></h3>
+            One thing we might want to do, is get the key value for which a field takes on a particular value. 
+            To find the first such key, 
+            <pre class="codeblock"><code><em>table</em>.<em>field</em>.findFirst(<em>fieldval</em>)</code></pre>
+            To get a vector of all such keys,
+            <pre class="codeblock"><code><em>table</em>.<em>field</em>.findAll(<em>fieldval</em>)</code></pre>
+
+            To get a <code>std::map</code> taking field values onto some subset (<code>std::vector</code>) of key values,
+            <pre class="codeblock"><code><em>table</em>.<em>field</em>.createKeyMap(<em>keyrange</em>)</code></pre>
+
+            <h3><u><strong>Storing Arbitary Values at Runtime</strong></u></h3>
+            Sometimes, for the sake of convenience or performance, it is useful to store complex data related to a table at runtime. 
+            For this purpose, each table can hold arbitary data via use of <code>void*</code>.
+            This is made easy for the user by a set of functions,
+            <pre class="codeblock"><code><em>table</em>.createVal&lt<em>valtype</em>&gt(<em>name</em>, <em>val</em>)
+<em>table</em>.setVal&lt<em>valtype</em>&gt(<em>name</em>, <em>val</em>)
+<em>table</em>.getVal&lt<em>valtype</em>&gt(<em>name</em>)
+<em>table</em>.destroyVal(<em>name</em>)</code></pre>
+
+            <strong>Previous</strong>: <a href="table-construction.html">More About Table Construction</a>
+        </div>
+    </div> 
+</body>
+</html>
