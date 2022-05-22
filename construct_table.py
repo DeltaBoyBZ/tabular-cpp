@@ -41,9 +41,6 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
 
 # creates table info (if necessary) and parses it before pasting it into a header file 
 def make_table(table_info, header_name):
-    if(table_info is None):
-        table_info = create_table_info()
-
     add_args = ""
     for field in table_info['fields']:
         add_args += "{} {}, ".format(field['type'], field['name'])
@@ -67,7 +64,7 @@ def make_table(table_info, header_name):
         table_add_func = f"TABCPP_ADD_FUNC_AUTO({table_info['key']['datatype']}, TABCPP_ARGS({add_args}), {table_update_add});\n" 
 
     else:
-        table_add_func = f"TABCPP_ADD_FUNC_MAN({table_info['key']['datatype']}, {TABCPP_ARGS(add_args)}, {table_update_add});\n"
+        table_add_func = f"TABCPP_ADD_FUNC_MAN({table_info['key']['datatype']}, TABCPP_ARGS({add_args}), {table_update_add});\n"
 
     table_remove_func = f"TABCPP_REMOVE_FUNC({table_info['key']['datatype']}, {table_update_remove});\n"
 
