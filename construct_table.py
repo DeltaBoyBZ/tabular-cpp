@@ -25,6 +25,9 @@ def createTableModule(header_filename):
 
         elif("TABCPP_OPEN" in line): inside_module = True 
 
+    header.close()
+    module.close()
+
     return module_name
 
 # writes a table constructer to a given header file
@@ -34,6 +37,7 @@ def createTableHeader(header_filename, tables):
     for table_info in tables:
         table_definition = make_table(table_info)
         table_header.write(table_definition)
+    table_header.close()
 
 # adds an appropriate include statement to a header file
 def addInclude(header_filename, include_filename):
@@ -53,6 +57,8 @@ def addInclude(header_filename, include_filename):
             temp.write(f"#include\"{include_filename}\"\n")
             inserting = False
 
+    temp.close()
+    orig.close()
     # transfer temp to orig
     os.rename(f"{header_filename}.temp", header_filename)
 
@@ -68,6 +74,7 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
         if(not inside_table): 
             temp.write(line)
             if("//TABLE_BEGIN {}".format(table_info["name"]) in line):
+                temp.write(table_definition)
                 inside_table = True
 
         else:
@@ -76,9 +83,13 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
                 temp.write(line)
 
 
+    
     temp.close()
     header.close()
 
+    os.rename(header_filename + "." + table_info["name"] + ".temp", header_filename)
+
+    '''
     header = open(header_filename, "w")
     temp = open(header_filename + "." + table_info["name"] + ".temp", "r")
 
@@ -86,6 +97,7 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
         header.write(line)
         if("//TABLE_BEGIN {}".format(table_info["name"]) in line):
             header.write(table_definition)
+    '''
 
 
 # creates table info (if necessary) and parses it before pasting it into a header file 
@@ -140,7 +152,8 @@ def createTables(header_dir, header_name):
     module_filename = f"{header_dir}/{module_name}.hpp"
     table_mod = __import__(module_name)
     createTableHeader(module_filename, table_mod.tables)
-    addInclude(header_filename, f"{module_name}.hpp")
+    # TODO: rewrite this function so include statement is in good position
+    # addInclude(header_filename, f"{module_name}.hpp")
 
 if __name__ == "__main__":
     if("load" in sys.argv[1]):
@@ -148,5 +161,4 @@ if __name__ == "__main__":
     elif("create" in sys.argv[1]):
         createTables(sys.argv[2], sys.argv[3])
         
-
 
