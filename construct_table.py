@@ -21,7 +21,7 @@ def createTableModule(header_filename):
             if("TABCPP_CLOSE" in line): 
                 inside_module = False
                 continue
-            module.write(line[2:])
+            module.write(line)
 
         elif("TABCPP_OPEN" in line): inside_module = True 
 

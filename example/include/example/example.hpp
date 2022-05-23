@@ -32,16 +32,17 @@ TABCPP_REMOVE(id, index);
 //TABLE_END People
 
 #include"example_tables.hpp"
-//TABCPP_OPEN
-//from tabcpp import * 
-//tables = [
-//  {
-//      'name': 'Points',
-//      'fields': [
-//          field('float', 'x'),
-//          field('float', 'y')
-//      ],
-//      'key': key('auto', 'int', 'id')
-//  }
-//]
-//TABCPP_CLOSE
+
+/*TABCPP_OPEN
+from tabcpp import * 
+tables = [
+    {
+        'name': 'Points',
+        'fields': [
+            field('float', 'x'),
+            field('float', 'y')
+        ],
+        'key': key('auto', 'int', 'id')
+    }
+]
+TABCPP_CLOSE*?
