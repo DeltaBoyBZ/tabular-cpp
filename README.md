@@ -17,6 +17,8 @@ That is where Tabular-C++ comes in, With the use of generic table-building macro
 ## Guide
 For a full guide on how to start using Tabular-C++, check out the [Tabular-C++ Guide](guide/introduction.html).  
 
+There, you can learn in-depth how to construct tables in this framework (there's more than one way), and all the different ways you can use them. 
+
 ## Basic Example
 
 #### include/example/example.hpp
@@ -78,8 +80,7 @@ For a full guide on how to start using Tabular-C++, check out the [Tabular-C++ G
         
 #### Build Commands
 
-    $ tabcpp.sh include/example people_table
-    Header file: example.hpp
+    $ tabcpp.sh load include/example example.hpp people_table
     $ g++ -Iinclude src/example.cpp -o example 
 
 ## Other Options and Disclaimer
