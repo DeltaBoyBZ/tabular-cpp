@@ -16,6 +16,9 @@ def createTableModule(header_filename):
     module_filename = f"{header_filename.split('.')[0]}_tables.py"
     module_name = module_filename.split("/")[-1][:-3]
     module = open(module_filename, "w")
+
+    namespace_prefix = ""
+    namespace_suffix = ""
     for line in header:
         if(inside_module):
             if("TABCPP_CLOSE" in line): 
@@ -25,18 +28,27 @@ def createTableModule(header_filename):
 
         elif("TABCPP_OPEN" in line): inside_module = True 
 
+        elif("namespace" in line):
+                namespace_prefix = line
+                if('{' not in namespace_prefix): namespace_prefix += "{\n"
+                namespace_suffix = "}"
+
+
+
     header.close()
     module.close()
 
-    return module_name
+    return (module_name, namespace_prefix, namespace_suffix)
 
 # writes a table constructer to a given header file
-def createTableHeader(header_filename, tables): 
+def createTableHeader(header_filename, tables, namespace_prefix, namespace_suffix): 
     table_header = open(header_filename, "w")
     table_header.write("#pragma once\n#include<tabcpp/tabcpp.hpp>\n")
+    table_header.write(namespace_prefix)
     for table_info in tables:
         table_definition = make_table(table_info)
         table_header.write(table_definition)
+    table_header.write(namespace_suffix)
     table_header.close()
 
 # adds an appropriate include statement to a header file
@@ -89,15 +101,6 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
 
     os.rename(header_filename + "." + table_info["name"] + ".temp", header_filename)
 
-    '''
-    header = open(header_filename, "w")
-    temp = open(header_filename + "." + table_info["name"] + ".temp", "r")
-
-    for line in temp:
-        header.write(line)
-        if("//TABLE_BEGIN {}".format(table_info["name"]) in line):
-            header.write(table_definition)
-    '''
 
 
 # creates table info (if necessary) and parses it before pasting it into a header file 
@@ -148,10 +151,10 @@ def loadTables(header_filename, module_name):
 
 def createTables(header_dir, header_name):
     header_filename = f"{header_dir}/{header_name}"
-    module_name = createTableModule(header_filename)
+    module_name, namespace_prefix, namespace_suffix = createTableModule(header_filename)
     module_filename = f"{header_dir}/{module_name}.hpp"
     table_mod = __import__(module_name)
-    createTableHeader(module_filename, table_mod.tables)
+    createTableHeader(module_filename, table_mod.tables, namespace_prefix, namespace_suffix)
     # TODO: rewrite this function so include statement is in good position
     # addInclude(header_filename, f"{module_name}.hpp")
 
