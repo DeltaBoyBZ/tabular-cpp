@@ -1,0 +1,5 @@
+*.html linguist-documentation
+*.css linguist-documentation
+jquery.js linguist-vendor
+w3.css linguist-vendor
+guide/w3.css linguist-vendor
