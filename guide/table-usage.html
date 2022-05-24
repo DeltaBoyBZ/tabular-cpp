@@ -54,13 +54,13 @@
             Setting the element is done with,
             <pre class="codeblock"><code><em>table</em>.<em>field</em>.set(<em>keyval</em>, <em>fieldval</em>)</code></pre>
 
-            If you need to read or write by row index (the vertical position of  a row), you can simply manipulate the object <code> <em>table</em>.<em>field</em>[index]</code>, since table fields extend <code>std::vector</code>.
+            If you need to read or write by row index (the vertical position of  a row), you can simply manipulate the object <code class="inline"> <em>table</em>.<em>field</em>[index]</code>, since table fields extend <code class="inline">std::vector</code>.
 
             <h3><u><strong>Labelling Rows</strong></u></h3>
             Sometimes it is convenient to give a label to a row, to help facilitate access in different locations in code. 
             To associate a label with a key value,
             <pre class="codeblock"><code><em>table</em>.makeLabel(<em>keyval</em>, <em>label</em>)</code></pre>
-            Labels are implemented as a <code>std::map</code> named <code><em>table</em>.labels</code>, from <code>std::string</code> to the key datatype.
+            Labels are implemented as a <code class="inline">std::map</code> named <code class="inline"><em>table</em>.labels</code>, from <code class="inline">std::string</code> to the key datatype.
 
             <h3><u><strong>Getting Relevant Key Values</strong></u></h3>
             One thing we might want to do, is get the key value for which a field takes on a particular value. 

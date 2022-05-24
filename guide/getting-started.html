@@ -34,11 +34,11 @@
             <p>
             The first step will be to download the latest version from the GitHub repository. 
             Since the Tabular-C++ package is purely C++ headers, (.hpp), Python modules (.py) and bash scripts (.sh), there is no extra building required. 
-            We do however recommend that you run the <code>configure.sh</code> script, which will:
+            We do however recommend that you run the <code class="inline">configure.sh</code> script, which will:
             <ul>
-                <li> Create a new environment variable <code>TABCPP_ROOT</code> and set it to the root directory of your version of Tabular-C++
-                    <li> Add the value of <code>TABCPP_ROOT</code> to <code>PATH</code>
-                    <li> Add <code>TABCPP_ROOT/include</code> to the system's include paths 
+                <li> Create a new environment variable <code class="inline">TABCPP_ROOT</code> and set it to the root directory of your version of Tabular-C++
+                    <li> Add the value of <code class="inline">TABCPP_ROOT</code> to <code class="inline">PATH</code>
+                    <li> Add <code class="inline">TABCPP_ROOT/include</code> to the system's include paths 
             </ul>
             All this is to ensure maximal convenience. There are other ways to get Tabular-C++ working with your projects, which we shall mention when relevant. 
             </p>
@@ -73,11 +73,11 @@
             </div>
 
             </p>
-            If you have done this correctly, you should find in your <code>example</code> folder.
+            If you have done this correctly, you should find in your <code class="inline">example</code> folder.
             </p>
             <ul>
-                <li> A bash script <code>tabcpp.sh</code> </li>
-                <li> Two Python files: <code>construct_table.py</code> and <code>tabcpp.py</code></li>
+                <li> A bash script <code class="inline">tabcpp.sh</code> </li>
+                <li> Two Python files: <code class="inline">construct_table.py</code> and <code class="inline">tabcpp.py</code></li>
             </ul>
 
             <h3> <strong> <u> Step 3: Create a Header File </u> </strong> </h3>
@@ -99,8 +99,8 @@ typedef enum
 
 //TABLE_BEGIN People
 //TABLE_END People            </code></pre>
-            The comments <code>//TABLE_BEGIN</code> and <code>//TABLE_END</code> comments are crucial here. 
-            They will in time contain the code defining a table which we call <code>People</code>. 
+            The comments <code class="inline">//TABLE_BEGIN</code> and <code class="inline">//TABLE_END</code> comments are crucial here. 
+            They will in time contain the code defining a table which we call <code class="inline">People</code>. 
             </p>
 
             <h3> <u><strong> Step 4: Construct the Table </strong></u> </h3>
@@ -124,9 +124,9 @@ tables = [
 ]</code></pre>
         
             <p>
-            Now run the following command from the root <code>example</code>:
-            <pre class="codeblock"><code> $ tabcpp.sh include/example people_table </code></pre> 
-            Upon reloading <code>example.hpp</code> you shoud find, inserted between the aforementioned comments, some extra code. 
+            Now run the following command from the root <code class="inline">example</code>:
+            <pre class="codeblock"><code> $ tabcpp.sh load include/example example.hpp people_table </code></pre> 
+            Upon reloading <code class="inline">example.hpp</code> you shoud find, inserted between the aforementioned comments, some extra code. 
             This code defines our table, and is now ready for use. 
             </p>
 

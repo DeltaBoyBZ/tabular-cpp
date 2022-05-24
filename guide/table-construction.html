@@ -32,12 +32,12 @@
             <h3> <strong><u> Table Module </u> </strong></h3>
             <p>
             Tabular-C++ users can use Python modules to define their tables. 
-            The tables are expressed as Python dicts, and an arbitary number of these are placed in an array called <code>tables</code>. 
-            The constructor script <code>tabcpp.sh</code> will go through each table and insert appropriate C++ code in a nominated header file. 
+            The tables are expressed as Python dicts, and an arbitary number of these are placed in an array called <code class="inline">tables</code>. 
+            The constructor script <code class="inline">tabcpp.sh</code> will go through each table and insert appropriate C++ code in a nominated header file. 
             </p>
             <h3> <strong><u> Table Name </u> </strong> </h3>
             <p>
-            The <code>'name'</code> of a table should agree with the name given in the header file by the comments <code>//TABLE_BEGIN &ltname&gt</code> and <code>//TABLE_END &ltname&gt</code>.
+            The <code class="inline">'name'</code> of a table should agree with the name given in the header file by the comments <code class="inline">//TABLE_BEGIN &ltname&gt</code> and <code class="inline">//TABLE_END &ltname&gt</code>.
             </p>
 
             <h3> <strong><u> Fields </u> </strong> </h3>
@@ -46,11 +46,11 @@
             </p>
             <pre class="codeblock"><code> {'type': 'float', 'name': 'height'} </code></pre>
             <p>
-            but we may also construct this with a function defined in the <code>tabcpp</code> Python module,
+            but we may also construct this with a function defined in the <code class="inline">tabcpp</code> Python module,
             </p>
             <pre class="codeblock"><code> tabcpp.field('float', 'height') </code></pre>
             <p>
-            Fields are given together in the table dict, in an array under the key <code>'fields'</code>.
+            Fields are given together in the table dict, in an array under the key <code class="inline">'fields'</code>.
             All field datatypes must be avaiable at the location indicated in the target header file. 
             </p>
             <h3><strong><u> Keys </u></strong></h3>
@@ -67,20 +67,20 @@
             </p>
             <pre class="codeblock"><code> {'type': 'auto', 'datatype': 'short', 'name': id}</code></pre>
             <p>
-            or use a function from <code>tabcpp</code>,
+            or use a function from <code class="inline">tabcpp</code>,
             </p>
             <pre class="codeblock"><code> tabcpp.key('auto', 'short', 'id') </code></pre>
             <p>
-            The key is given in the table dict under the key <code>'key'</code>.
+            The key is given in the table dict under the key <code class="inline">'key'</code>.
             </p>
 
             <h3> <u><strong>Inserting the Table in a Header File </strong></u></h3>
             <p>
-            Code insersion is performed using the <code>tabcpp.sh</code> script, which wraps the real workhorse <code>construct_table.py</code>. You shoud ensure that the table Python module and the target header file are in the same directory. The command syntax is,
+            Code insersion is performed using the <code class="inline">tabcpp.sh</code> script, which wraps the real workhorse <code class="inline">construct_table.py</code>. You shoud ensure that the table Python module and the target header file are in the same directory. The command syntax is,
             </p>
-            <pre class="codeblock"><code> $ tabcpp.sh &ltpath-to-table&gt &lttable-python-module&gt </code></pre>
+            <pre class="codeblock"><code> $ tabcpp.sh load &ltpath-to-table&gt &ltheader-name&gt &lttable-python-module-name&gt </code></pre>
             <p>
-            In the target header file, it is necessary to have the header <code>tabcpp.hpp</code> is included. 
+            In the target header file, it is necessary to have the header <code class="inline">tabcpp.hpp</code> is included. 
             Otherwise the table code will give an error.
             </p>
             
