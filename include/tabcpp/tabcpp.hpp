@@ -181,6 +181,9 @@ namespace tabcpp
             bool full = false;
             KeyType keyMax; 
     
+
+            virtual ~Table() {}
+
             virtual void remove(KeyType keyval) {};
 
             void makeLabel(KeyType keyval, std::string name)

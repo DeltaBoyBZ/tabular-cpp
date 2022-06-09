@@ -25,7 +25,7 @@
     }
 
 #define TABCPP_DESTRUCTOR(tablename)\
-    ~tablename(){\
+    ~tablename() override {\
     }
 
 // a table field (column) represented by a std::vector<type>
@@ -174,7 +174,9 @@ namespace tabcpp
             bool full = false;
             KeyType keyMax; 
     
-            virtual void remove(KeyType keyval) {};
+            virtual ~Table() {}
+
+            virtual void remove(KeyType keyval) {}
 
             void makeLabel(KeyType keyval, std::string name)
             {
