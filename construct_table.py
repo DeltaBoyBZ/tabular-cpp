@@ -152,16 +152,27 @@ def loadTables(header_filename, module_name):
 def createTables(header_dir, header_name):
     header_filename = f"{header_dir}/{header_name}"
     module_name, namespace_prefix, namespace_suffix = createTableModule(header_filename)
-    module_filename = f"{header_dir}/{module_name}.hpp"
+    table_header_filename = f"{header_dir}/{module_name}.hpp"
     table_mod = __import__(module_name)
-    createTableHeader(module_filename, table_mod.tables, namespace_prefix, namespace_suffix)
+    createTableHeader(table_header_filename, table_mod.tables, namespace_prefix, namespace_suffix)
     # TODO: rewrite this function so include statement is in good position
     # addInclude(header_filename, f"{module_name}.hpp")
+
+def realiseTables(header_dir, header_name):
+    header_filename = f"{header_dir}/{header_name}"
+    module_name, namespace_prefix, namespace_suffix = createTableModule(header_filename)
+    loadTables(header_filename, module_name)
+
 
 if __name__ == "__main__":
     if("load" in sys.argv[1]):
         loadTables(f"{sys.argv[2]}/{sys.argv[3]}", sys.argv[4])
     elif("create" in sys.argv[1]):
         createTables(sys.argv[2], sys.argv[3])
+    elif("realise" in sys.argv[1]):
+        realiseTables(sys.argv[2], sys.argv[3])
+    else:
+        print("Unknown option: {}".format(sys.argv[1]))
+
         
 
