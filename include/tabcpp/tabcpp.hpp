@@ -111,7 +111,14 @@ namespace tabcpp
                 public:
                     TableField(Table<KeyType>* parent): parent(parent) {
                         this->clear();
-                    }
+                    };
+
+                    template <typename T>
+                    FieldType get(T val)
+                    {
+                        return get(parent->labels[val]);
+                    } 
+
 
                     FieldType get(KeyType keyval)
                     {
@@ -119,6 +126,7 @@ namespace tabcpp
                         int index = parent->indices[keyval];         
                         return this->at(index);
                     }
+
 
                     FieldType* getPtr(KeyType keyval)
                     {
