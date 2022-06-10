@@ -58,8 +58,12 @@ TABCPP_CLOSE*/
             will then create a new header file <code class="inline">example_tables.hpp</code>, defining the table.
             </p>
 
+            We can also choose to dump the table code in the same header as the inline Python. 
+            To indicate where this should be done, place comments <code>//TABLE_BEGIN &lttable-name&gt</code> and <code>//TABLE_END &lttable-name&gt</code>, and use the command,
+            <pre class="codeblock"><code>$ tabcpp.sh realise include/example example.hpp </code></pre>
+
             <strong>Previous</strong>: <a href="getting-started.html">Interacting with Tables</a>   ;   
         </div>
     </div> 
 </body>
-<
+

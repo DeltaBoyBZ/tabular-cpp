@@ -114,9 +114,9 @@ namespace tabcpp
                     };
 
                     template <typename T>
-                    FieldType get(T val)
+                    FieldType get(T x)
                     {
-                        return get(parent->labels[val]);
+                        return get(parent->labels[x]);
                     } 
 
 
@@ -133,6 +133,12 @@ namespace tabcpp
                         if(!parent->indicesCurrent) parent->remap();
                         int index = parent->indices[keyval];
                         return &this->at(index);
+                    }
+
+                    template <typename T>
+                    void set(T x, FieldType fieldval)
+                    {
+                        set(parent->labels[x], fieldval); 
                     }
 
                     void set(KeyType keyval, FieldType fieldval)
