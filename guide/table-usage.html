@@ -43,8 +43,10 @@
             For this reason, the user is recommended to not update the field nominated as a manual key. 
             </p>
             <p>
-            Removing a row requires knowledge of its associated key. The syntax is,
+            Removing a row requires knowledge of its associated key, or label (see below). The syntax is,
             <pre class="codeblock"><code><em>table</em>.remove(<em>keyval</em>)</code></pre>
+            or
+            <pre class="codeblock"><code><em>table</em>.removeByLabel(<em>label</em>)</code></pre>
             To remove all rows,
             <pre class="codeblock"><code><em>table</em>.clear()</code></pre>
             </p>
