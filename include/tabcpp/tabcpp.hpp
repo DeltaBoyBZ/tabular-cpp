@@ -198,6 +198,11 @@ namespace tabcpp
 
             virtual ~Table() {}
 
+            void removeByLabel(std::string label) 
+            {
+                this->remove(this->labels[label]);
+            }
+
             virtual void remove(KeyType keyval) {};
 
             void makeLabel(KeyType keyval, std::string name)
