@@ -148,6 +148,12 @@ namespace tabcpp
                         this->at(index) = fieldval;
                     }
 
+                    template <typename T>
+                    KeyType findFirst(T label)
+                    {
+                        return findFirst(parent->labels[label]);
+                    }
+
                     KeyType findFirst(FieldType fieldval)
                     {
                         KeyType keyval = -1;
