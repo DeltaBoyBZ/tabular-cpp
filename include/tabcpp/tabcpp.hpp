@@ -148,11 +148,6 @@ namespace tabcpp
                         this->at(index) = fieldval;
                     }
 
-                    template <typename T>
-                    KeyType findFirst(T label)
-                    {
-                        return findFirst(parent->labels[label]);
-                    }
 
                     KeyType findFirst(FieldType fieldval)
                     {
@@ -229,6 +224,16 @@ namespace tabcpp
             {
                 while(!this->key->empty()) this->remove(*this->key->begin());
                 full = false;
+            }
+
+            bool keyPresent(KeyType keyval)
+            {
+                return !(this->key->find(keyval) == this->key->end());
+            }
+
+            bool checkLabel(std::string label)
+            {
+                return keyPresent(this->labels[label]); 
             }
 
             template <typename ValType>
