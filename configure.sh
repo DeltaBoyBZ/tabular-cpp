@@ -2,8 +2,8 @@
 echo "export TABCPP_ROOT=$(pwd)" >> ~/.bashrc
 
 # add root to PATH
-echo 'export PATH=${PATH}:'"$(pwd)" >> ~/.bashrc
+echo 'export PATH=${PATH}:${TABCPP_ROOT}' >> ~/.bashrc
 
 # add root to include path
-echo 'export CPLUS_INCLUDE_PATH=${CPLUS_INCLUDE_PATH}:'"$(pwd)/include" >> ~/.bashrc
+echo 'export CPLUS_INCLUDE_PATH=${CPLUS_INCLUDE_PATH}:${TABCPP_ROOT}/include' >> ~/.bashrc
 
