@@ -85,12 +85,12 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
     for line in header:
         if(not inside_table): 
             temp.write(line)
-            if("//TABLE_BEGIN {}".format(table_info["name"]) in line):
+            if("//TABLE_BEGIN {}".format(table_info["name"]) in line and table_info['name'] in line):
                 temp.write(table_definition)
                 inside_table = True
 
         else:
-            if("//TABLE_END {}".format(table_info["name"]) in line):
+            if("//TABLE_END {}".format(table_info["name"]) in line and table_info['name'] in line):
                 inside_table = False
                 temp.write(line)
 
@@ -103,7 +103,6 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
 
 
 
-# creates table info (if necessary) and parses it before pasting it into a header file 
 def make_table(table_info):
     add_args = ""
     for field in table_info['fields']:
@@ -144,10 +143,11 @@ def loadTables(header_filename, module_name):
 
     tables = table_mod.tables
 
+
     for table_info in tables:
         table_definition = make_table(table_info)
+        replaceHeaderBlock(table_info, table_definition, header_filename)
 
-    replaceHeaderBlock(table_info, table_definition, header_filename)
 
 def createTables(header_dir, header_name):
     header_filename = f"{header_dir}/{header_name}"
