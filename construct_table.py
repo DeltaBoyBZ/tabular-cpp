@@ -105,11 +105,16 @@ def replaceHeaderBlock(table_info, table_definition, header_filename):
 
 def make_table(table_info):
     add_args = ""
+    table_row_decs = ""
+    get_row_assignments = ""
     for field in table_info['fields']:
         add_args += "{} {}, ".format(field['type'], field['name'])
+        table_row_decs += f"TABCPP_ROW_FIELD_DEC({field['type']}, {field['name']}) "
+        get_row_assignments += f"row.{field['name']} = this->{field['name']}[index];\n"
 
     add_args = add_args[:-2]
 
+    table_row = f"TABCPP_ROW_STRUCT({table_info['name']}, {table_row_decs})\n"
     table_constructor = f"TABCPP_CONSTRUCTOR({table_info['name']}, {table_info['key']['name']}, {table_info['key']['datatype']})\n"
     table_destructor = f"TABCPP_DESTRUCTOR({table_info['name']})\n"
 
@@ -131,7 +136,8 @@ def make_table(table_info):
 
     table_remove_func = f"TABCPP_REMOVE_FUNC({table_info['key']['datatype']}, {table_update_remove});\n"
 
-    table_definition = f"TABCPP_TABLE({table_info['name']}, {table_info['key']['datatype']}, {table_constructor}, {table_destructor}, {table_field_declarations}, {table_add_func}, {table_remove_func});\n"
+    table_get_row = f"TABCPP_GET_ROW({table_info['name']}, {table_info['key']['datatype']}, {get_row_assignments})"
+    table_definition = f"{table_row} TABCPP_TABLE({table_info['name']}, {table_info['key']['datatype']}, {table_constructor}, {table_destructor}, {table_field_declarations}, {table_add_func}, {table_remove_func}, {table_get_row});\n"
 
     
     # replace a block in a nominated header file with the code which constructs a new table

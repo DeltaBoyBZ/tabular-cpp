@@ -13,7 +13,7 @@
 #include<limits>
 
 // the main struct defining a table
-#define TABCPP_TABLE(name, keytype, constructor, destructor, field_declarations, add_func, remove_func)\
+#define TABCPP_TABLE(name, keytype, constructor, destructor, field_declarations, add_func, remove_func, get_row_func)\
     class name : public tabcpp::Table<keytype> {\
         public:\
                 constructor\
@@ -21,6 +21,7 @@
                 field_declarations\
                 add_func\
                 remove_func\
+                get_row_func\
     };\
                 
 #define TABCPP_CONSTRUCTOR(tablename, fieldname, keytype)\
@@ -97,6 +98,22 @@
 #define TABCPP_HANDLE(type, member)\
     type member; 
 
+// definition of row struct
+#define TABCPP_ROW_STRUCT(table_name, fields)\
+    typedef struct table_name##_Row{\
+        fields\
+    } table_name##_Row;
+
+#define TABCPP_ROW_FIELD_DEC(type, name)\
+    type name;
+
+#define TABCPP_GET_ROW(table_name, keytype, assignments)\
+    table_name##_Row getRow(keytype id){\
+        table_name##_Row row;\
+        int index = this->getIndex(id);\
+        assignments;\
+        return row;\
+    }
 
 namespace tabcpp
 {
@@ -148,7 +165,14 @@ namespace tabcpp
                         this->at(index) = fieldval;
                     }
 
+                    
 
+
+                    template <typename Row>
+                    Row getRow(KeyType keyval)
+                    {
+                    }
+                    
                     KeyType findFirst(FieldType fieldval)
                     {
                         KeyType keyval = -1;
@@ -202,6 +226,14 @@ namespace tabcpp
             void removeByLabel(std::string label) 
             {
                 this->remove(this->labels[label]);
+            }
+
+            int getIndex(KeyType keyval)
+            {
+                for(int i = 0; i < this->key->size(); i++)
+                    if(this->key->at(i) == keyval)
+                        return i;
+                return -1;
             }
 
             virtual void remove(KeyType keyval) {};
