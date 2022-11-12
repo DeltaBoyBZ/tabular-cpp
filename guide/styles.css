@@ -1,0 +1,64 @@
+#main
+{
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+p
+{
+    //font-size: 16pt;
+}
+
+#sidebarContents
+{
+    width: 20%;
+    font-size: 16pt;
+    height: 1000px;
+    position: sticky;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+body, h1, h2, h3, h4
+{
+    font-family: Arial, serif;
+}
+
+.inline
+{
+    font-size: 14pt;
+}
+
+
+#guide
+{
+    line-height: 1.6;
+    text-align: justify;
+    text-justify: inter-word;
+    font-family: Times, serif;
+    background-color: #eeeeee;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    padding: 8%;
+    font-size: 18pt;
+}
+
+#header-left
+{
+    float: left;
+}
+
+#header-left
+{
+    float: right;
+}
+
+.codeblock
+{
+    padding-left: 5%; 
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: #222222;
+    color: white; 
+    font-size: 12pt;
+}
