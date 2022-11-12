@@ -11,8 +11,10 @@ h1
 
 #tabcpp-main
 {
+    position: absolute; 
     width: 100%;
     height: 100vh;
+    top: 20%; 
     align: center;
     text-align: center;
 }
@@ -23,10 +25,13 @@ h1
     color: #dddddd;
     position: relative;
     left: 20%;
-    top: 20%;
     width: 60%;
-    height: 30%;
+    height: 20%;
     text-align: center;
+}
+
+#tabcpp-title > h1 {
+    font-size: 10vh;
 }
 
 .homeButton
@@ -39,7 +44,6 @@ h1
 {
     text-color: black;
     width: 20%;
-    top: 10%;
     position: relative;
 }
 
@@ -47,7 +51,6 @@ h1
 {
     text-color: black;
     width: 20%;
-    top: 10%;
     position: relative;
 }
 
@@ -57,6 +60,5 @@ h1
     padding: 5%;
     color: white;
     position: relative;
-    top: 10%;
     font-size: 20pt;
 }
